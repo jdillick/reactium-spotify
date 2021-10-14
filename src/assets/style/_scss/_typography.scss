@@ -1,31 +1,38 @@
-html, body {
-  margin: 0;
-  font-family: #{$font-family-base};
-  font-size: $font-size-base;
-  font-weight: $font-weight-base;
-  line-height: $line-height-base;
-  color: $color-black;
-  text-align: left;
-  background-color: $color-white;
+html,
+body {
+    margin: 0;
+    font-family: #{$font-family-base};
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    line-height: $line-height-base;
+    color: $color-black;
+    text-align: left;
+    background-color: $color-white;
 }
 
 .number {
     font-family: $font-family-monospace;
 }
 
-.upper, .uppercase {
-    text-transform: uppercase
+.upper,
+.uppercase {
+    text-transform: uppercase;
 }
 
-.lower, .lowercase {
+.lower,
+.lowercase {
     text-transform: lowercase;
 }
 
-.proper, .propercase, .capitalize {
+.proper,
+.propercase,
+.capitalize {
     text-transform: capitalize;
 }
 
-u, .u, .underline {
+u,
+.u,
+.underline {
     text-decoration: underline;
 }
 
@@ -35,7 +42,8 @@ strike,
     text-decoration: line-through;
 }
 
-p, .p {
+p,
+.p {
     line-height: 1.5;
 }
 
@@ -59,12 +67,12 @@ small,
 }
 
 blockquote {
-    padding          : px2rem(20);
-    margin           : px2rem(20) 0;
-    background-color : $color-grey-light;
-    font-family      : 'Montserrat', sans-serif;
-    border-radius    : 0 px2rem(50) px2rem(50) 0;
-    border-left      : 5px solid $color-grey;
+    padding: px2rem(20);
+    margin: px2rem(20) 0;
+    background-color: $color-grey-light;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0 px2rem(50) px2rem(50) 0;
+    border-left: 5px solid $color-grey;
 }
 
 ul li,
@@ -74,7 +82,8 @@ ol li {
     margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
     margin: 0 0 0 px2rem(20);
     padding: 0;
 }
@@ -87,7 +96,16 @@ ul, ol {
     font-weight: 500;
 }
 
-
-
 @include heading-factory;
 // @include text-align;
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

@@ -1,0 +1,60 @@
+$track-border-color: $color-grey !default;
+
+.track {
+    height: 100%;
+    min-height: 50vh;
+    width: 100%;
+    border-radius: px2rem(20);
+    border: 1px solid rgba($track-border-color, .5);
+    box-shadow: 5px 8px 18px -2px $track-border-color;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-body {
+        display: flex;
+        padding: px2rem(24);
+        // height: 100%;
+    }
+
+    &-bg {
+        z-index: -100;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: .4;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .pause-play {
+            width: px2rem(50) !important;
+            height: px2rem(50) !important;
+        }
+
+        & > * {
+            margin-right: px2rem(20);
+            margin-bottom: px2rem(20);
+        }
+    }
+
+    &-image {
+        img {
+            height: px2rem(200);
+            width: auto;
+            border: 1px solid rgba($track-border-color, .5);    
+        }
+    }
+}
