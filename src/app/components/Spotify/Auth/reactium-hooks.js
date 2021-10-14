@@ -1,11 +1,22 @@
 import Reactium from 'reactium-core/sdk';
 import dayjs from 'dayjs';
 import op from 'object-path';
+import SpotifyWebApi from 'spotify-web-api-node';
+
+const playerName = 'Reactium';
+const WAIT_FOR_PLAYER_CONNECTION = 250;
+const CHECK_TOKEN_EXPIRATION = 1000 * 60;
 
 Reactium.Hook.register('sdk-init', async () => {
-    Reactium.Spotify = {
+    console.log('Initializing Reactium.Spotify');
+    const getOAuthToken = cb => {
+        // console.log('access_token', Reactium.Prefs.get('spotify_token.authToken'));
+        cb(Reactium.Prefs.get('spotify_token.authToken'));
+    };
+
+    const sdk = {
         auth: () => {
-            console.log('Checking spotify token.');
+            console.log('Checking Spotify token.');
             const token = Reactium.Prefs.get('spotify_token');
             const { protocol, host } = window.location;
 
@@ -18,7 +29,7 @@ Reactium.Hook.register('sdk-init', async () => {
             authParams.set('redirect_uri', `${protocol}//${host}/callback`);
             authParams.set(
                 'scope',
-                'streaming user-read-email user-modify-playback-state user-read-private',
+                'streaming user-read-email user-modify-playback-state user-read-private user-read-playback-state',
             );
             authParams.set('show_dialog', 'true');
             authURL.search = authParams;
@@ -29,7 +40,44 @@ Reactium.Hook.register('sdk-init', async () => {
             )
                 window.location.href = authURL.toString();
 
-            return op.get(token, 'authToken');
+            if (!window.onSpotifyWebPlaybackSDKReady) window.onSpotifyWebPlaybackSDKReady = async () => {
+                const player = sdk.player = new Spotify.Player({
+                    name: playerName,
+                    getOAuthToken,
+                    volume: 0.5
+                });
+
+                player.addListener('authentication_error', ({ message }) => {
+                    console.error(message);
+                    sdk.auth();
+                });
+
+                await sdk.player.connect();
+
+                await new Promise(resolve => setTimeout(resolve, WAIT_FOR_PLAYER_CONNECTION));
+
+                await sdk.setPlayerDevice();
+            }
+
+            getOAuthToken(token => sdk.api.setAccessToken(token));
+        },
+
+        api: new SpotifyWebApi({
+            clientId: window.spotify_client_id,
+        }),
+
+        setPlayerDevice: async () => {
+            const devices = await sdk.api.getMyDevices();
+
+            const device = op.get(devices, 'body.devices', []).find(({ name }) => name === playerName);
+            if (!device) {
+                throw new Error(`Device "${playerName}" not found!`);
+                return;
+            }
+
+            if (!device.is_active) {
+                await sdk.api.transferMyPlayback([device.id]);
+            }
         },
 
         callback: () => {
@@ -46,11 +94,15 @@ Reactium.Hook.register('sdk-init', async () => {
                 });
             }
 
+
             Reactium.Routing.historyObj.push('/');
         },
     };
 
+    Reactium.Spotify = sdk;
+    Reactium.Spotify.auth();
+
     Reactium.Pulse.register('MyComponent', Reactium.Spotify.auth, {
-        delay: 1000 * 10, // check auth every minute or so
+        delay: CHECK_TOKEN_EXPIRATION, // check auth every minute or so
     });
 });
