@@ -83,23 +83,3 @@ $breakpoints: (
     'lg-down': $breakpoint-lg-down,
     'xl': $breakpoint-xl-up,
 ) !default;
-
-body {
-    &::before {
-        display: block;
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        visibility: hidden;
-        content: json-encode($breakpoints);
-    }
-
-    &::after {
-        display: block;
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        visibility: hidden;
-        content: json-encode($breakpoints-max);
-    }
-}

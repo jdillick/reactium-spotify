@@ -1,5 +1,5 @@
 
-@mixin text-align() {
+@mixin text-align {
 
     @each $align in $text-alignment {
         .text-#{$align} {
@@ -8,13 +8,12 @@
     }
 
     @each $prefix in $breakpoint-all-prefixes {
-        @each $align in $text-alignment {
-
-                @include breakpoint($prefix) {
-                    .text-#{$prefix}-#{$align} {
-                        text-align: #{$align};
-                    }
+        @include breakpoint($prefix) {
+            @each $align in $text-alignment {
+                .text-#{$prefix}-#{$align} {
+                    text-align: #{$align};
                 }
+            }
         }
     }
 }
