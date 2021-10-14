@@ -1,5 +1,5 @@
 {
-  "name": "reactium-spotify-codescramble",
+  "name": "reactium-spotify",
   "version": "0.0.1",
   "description": "Playing around with the spotify API and demonstrating Reactium framework.",
   "main": "index.js",
@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@atomic-reactor/reactium-sdk-core": "^1.1.2",
+    "@atomic-reactor/toolkit": "file:reactium_modules/@atomic-reactor/toolkit/_npm",
     "@babel/cli": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@loadable/component": "^5.14.1",
@@ -145,6 +146,7 @@
     "module-alias": "^2.2.2",
     "nodemon": "^2.0.12",
     "ora": "^5.4.1",
+    "raw-loader": "^4.0.2",
     "readdir-recursive": "0.0.4",
     "sass": "^1.34.1",
     "slugify": "^1.5.0",
@@ -176,5 +178,7 @@
       "git add"
     ]
   },
-  "reactiumDependencies": {}
+  "reactiumDependencies": {
+    "@atomic-reactor/toolkit": "1.0.15"
+  }
 }
