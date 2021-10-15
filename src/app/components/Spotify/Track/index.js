@@ -15,6 +15,7 @@ const Track = ({
     const uri = op.get(track, 'uri');
     const images = op.get(track, 'album.images', []);
     const image = op.get(images, '0');
+    const artists = (track, 'album.artists', []);
     console.log({ track, uri, images });
 
     const controls = {
@@ -49,10 +50,11 @@ const Track = ({
                         <h2>{op.get(track, 'name')}</h2>
                         <label htmlFor='artists'>{__('Artists')}</label>
                         <ul id='artists' className='artists-list'>
-                            {op.get(track, 'album.artists', []).map(artist => {
-                                const artistName = op.get(artist, 'name', '');
-                                return <li key={artistName}>{artistName}</li>;
-                            })}
+                            {op.get(artists).map(artist => (
+                                <li className={'artist'} key={artist.name}>
+                                    {artist.name}
+                                </li>
+                            ))}
                         </ul>
                     </div>
 

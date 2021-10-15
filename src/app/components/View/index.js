@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Reactium from 'reactium-core/sdk';
 
 /**
  * -----------------------------------------------------------------------------
@@ -8,15 +7,10 @@ import Reactium from 'reactium-core/sdk';
  * -----------------------------------------------------------------------------
  */
 const View = props => {
-    useEffect(() => {
-        Reactium.Spotify.auth();
-    }, []);
-
     return (
         <>
             <Helmet titleTemplate='%s - Reactium Spotify'>
                 <title>Demo</title>
-                <script src='https://sdk.scdn.co/spotify-player.js'></script>
             </Helmet>
 
             <article className='col-12 m-xs-20'>

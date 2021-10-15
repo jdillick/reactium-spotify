@@ -3,7 +3,7 @@ import Reactium from 'reactium-core/sdk';
 
 const Auth = () => {
     useEffect(() => {
-        Reactium.Spotify.callback();
+        Reactium.Spotify.oauthCallback();
     }, []);
 
     return null;
