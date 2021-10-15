@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Zone } from 'reactium-core/sdk';
+import { Zone, useSyncState, __ } from 'reactium-core/sdk';
 import op from 'object-path';
+import mockPlaylists from '../Spotify/mock-playlists';
 
 /**
  * -----------------------------------------------------------------------------
@@ -9,17 +10,30 @@ import op from 'object-path';
  * -----------------------------------------------------------------------------
  */
 const View = props => {
-    
-    console.log(op.get(props, 'active.match.route.zone', 'main'));
+    const state = useSyncState({
+        title: __('Reactium Spotify Demo'),
+        search: '',
+        playlists: op.get(mockPlaylists, 'body.playlists.items', []),
+        playlist: {},
+        track: {},
+        zone: 'main',
+    });
+    const zone = op.get(props, 'active.match.route.zone', 'main');
+    const params = op.get(props, 'active.params', {});
+
     return (
         <>
             <Helmet titleTemplate='%s - Reactium Spotify'>
-                <title>Demo</title>
+                <title>{state.get('title', '')}</title>
             </Helmet>
 
-            <article className='col-12 m-xs-20'>
-                <h1>Spotify Demo</h1>
-                <Zone zone={op.get(props, 'active.match.route.zone', 'main')} />
+            <article className='m-xs-20'>
+                <h1>{state.get('title', '')}</h1>
+                <Zone
+                    state={state}
+                    params={params}
+                    zone={zone}
+                />
             </article>
         </>
     );

@@ -8,7 +8,7 @@ const Playlist = ({ playlist = mockPlaylist }) => {
     const [image] = op.get(playlist, 'images', []);
     
     return (
-        <Link className='playlist' to={`/playlist/${playlist.id}`}>
+        <Link className='playlist-link' to={`/playlist/${playlist.id}`}>
             <h2 className='sr-only'>{op.get(playlist, 'name')}</h2>
             {image && <img src={image.url} alt={op.get(playlist, 'description', '')} />}
         </Link>

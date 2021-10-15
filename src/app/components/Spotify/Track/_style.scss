@@ -42,6 +42,7 @@ $track-border-color: $color-grey !default;
         .pause-play {
             width: px2rem(50) !important;
             height: px2rem(50) !important;
+            flex: 0 0 px2rem(50);
         }
 
         & > * {

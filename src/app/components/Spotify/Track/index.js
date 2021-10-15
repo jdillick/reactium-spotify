@@ -45,7 +45,7 @@ const Track = ({
     const Control = state.get('playing') ? controls.pause : controls.play;
 
     return (
-        <section className='track'>
+        <article className='track'>
             <div className='track-bg'>
                 {image && <img src={image.url} alt={op.get(track, 'name')} />}
             </div>
@@ -84,7 +84,7 @@ const Track = ({
                     </button>
                 </div>
             </div>
-        </section>
+        </article>
     );
 };
 
