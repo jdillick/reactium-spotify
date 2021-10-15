@@ -92,7 +92,7 @@ export const sdk = {
 
     setupPlayerDevice: async () => {
         const devices = await sdk.api.getMyDevices();
-        console.log({devices})
+
         const device = op.get(devices, 'body.devices', []).find(({ name }) => name === playerName);
         if (!device) {
             throw new Error(`Device "${playerName}" not found!`);
@@ -103,4 +103,14 @@ export const sdk = {
             await sdk.api.transferMyPlayback([device.id]);
         }
     },
+
+    play: async track => {
+        if (track) {
+            sdk.api.play({ uris: [op.get(track, 'uri')] })
+        } else {
+            sdk.player.resume();
+        }
+    },
+
+    pause: async () => sdk.player.pause(),
 };
