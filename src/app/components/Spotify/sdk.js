@@ -112,5 +112,7 @@ export const sdk = {
         }
     },
 
+    resume: async () => sdk.player.resume(),
+
     pause: async () => sdk.player.pause(),
 };

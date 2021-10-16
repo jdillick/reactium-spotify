@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Zone, useSyncState, __ } from 'reactium-core/sdk';
+import { Link } from 'react-router-dom';
 import op from 'object-path';
 import mockPlaylists from '../Spotify/mock-playlists';
 
@@ -28,12 +29,10 @@ const View = props => {
             </Helmet>
 
             <article className='m-xs-20'>
-                <h1>{state.get('title', '')}</h1>
-                <Zone
-                    state={state}
-                    params={params}
-                    zone={zone}
-                />
+                <Link to='/'>
+                    <h1>{state.get('title', '')}</h1>
+                </Link>
+                <Zone state={state} params={params} zone={zone} />
             </article>
         </>
     );

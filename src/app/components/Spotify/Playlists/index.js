@@ -35,7 +35,7 @@ const Playlists = ({ state }) => {
                 {state.get('playlists', []).map(playlist => (
                     <li
                         key={playlist.id}
-                        className='playlist-item col-sm-12 col-md-3'>
+                        className='playlist-item col-xs-12 col-sm-6 col-md-3'>
                         <Playlist playlist={playlist} />
                     </li>
                 ))}
