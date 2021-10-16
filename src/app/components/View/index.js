@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Zone, useSyncState, __ } from 'reactium-core/sdk';
+import Reactium, { Zone, useSyncState, __ } from 'reactium-core/sdk';
 import { Link } from 'react-router-dom';
 import op from 'object-path';
 import mockPlaylists from '../Spotify/mock-playlists';
@@ -21,6 +21,18 @@ const View = props => {
     });
     const zone = op.get(props, 'active.match.route.zone', 'main');
     const params = op.get(props, 'active.params', {});
+
+    useEffect(() => {
+        const playerHandler = status => {
+            if (state.get('track.id') && status.paused) {
+                state.set('track.status', 'paused');
+            }
+        };
+
+        setTimeout(() => {
+            Reactium.Spotify.player && Reactium.Spotify.player.addListener('player_state_changed', playerHandler);
+        }, 250);
+    }, []);
 
     return (
         <>
