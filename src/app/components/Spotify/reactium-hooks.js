@@ -17,9 +17,14 @@ Reactium.Hook.register('sdk-init', async () => {
             if (op.get(updates, 'active.match.route.path') !== '/callback') {
                 console.log('Checking oauth...', op.get(updates, 'active.match.route.path'));
                 Reactium.Spotify.oauth();
+
+                const { transitionState, previous, current } = updates;
+                if (op.get(current, 'match.route.zone') === 'main' && transitionState === 'LOADING') {
+                    Reactium.Routing.nextState();
+                }
             }
         },
         order: Reactium.Enums.priority.low,
     });
-    
+
 });

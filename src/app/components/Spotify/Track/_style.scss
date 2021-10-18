@@ -1,5 +1,11 @@
 $track-border-color: $color-grey !default;
 
+.transitions {
+    .track {
+        transform: translateX(100vw);
+    }
+}
+
 .track {
     height: 100%;
     min-height: 50vh;
@@ -60,7 +66,7 @@ $track-border-color: $color-grey !default;
         img {
             height: px2rem(200);
             width: auto;
-            border: 1px solid rgba($track-border-color, .5);    
+            border: 1px solid rgba($track-border-color, .5);
         }
     }
 }

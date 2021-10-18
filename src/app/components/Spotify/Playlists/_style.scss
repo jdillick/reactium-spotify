@@ -16,6 +16,8 @@ $playlist-border-color: $color-grey !default;
     padding: px2rem(20);
     transform: scale(1); /* you need a scale here to allow it to transition in both directions */
     transition: 0.15s all ease;
+    position: relative;
+    transform: translateX(100vw);
 
     @include breakpoint(xs) {
         height: 96vw;

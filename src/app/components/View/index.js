@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Reactium, { Zone, useSyncState, __ } from 'reactium-core/sdk';
+import Reactium, {
+    Zone,
+    useSyncState,
+    __,
+    useHookComponent,
+} from 'reactium-core/sdk';
 import { Link } from 'react-router-dom';
 import op from 'object-path';
 import mockPlaylists from '../Spotify/mock-playlists';
@@ -11,6 +16,7 @@ import mockPlaylists from '../Spotify/mock-playlists';
  * -----------------------------------------------------------------------------
  */
 const View = props => {
+    // console.log(props);
     const state = useSyncState({
         title: __('Reactium Spotify Demo'),
         search: '',
@@ -30,9 +36,16 @@ const View = props => {
         };
 
         setTimeout(() => {
-            Reactium.Spotify.player && Reactium.Spotify.player.addListener('player_state_changed', playerHandler);
+            Reactium.Spotify.player &&
+                Reactium.Spotify.player.addListener(
+                    'player_state_changed',
+                    playerHandler,
+                );
         }, 250);
     }, []);
+
+    const Loading = useHookComponent('Loading');
+    const transitionState = op.get(props, 'transitionState', 'LOADING');
 
     return (
         <>
@@ -44,7 +57,13 @@ const View = props => {
                 <Link to='/'>
                     <h1>{state.get('title', '')}</h1>
                 </Link>
-                <Zone state={state} params={params} zone={zone} />
+                {transitionState === 'LOADING' && <Loading />}
+                <Zone
+                    state={state}
+                    params={params}
+                    zone={zone}
+                    transitionState={transitionState}
+                />
             </article>
         </>
     );

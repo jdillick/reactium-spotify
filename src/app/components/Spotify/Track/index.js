@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import op from 'object-path';
 import mockTracks from '../mock-tracks';
 import { Feather } from 'components/common-ui/Icon';
@@ -12,13 +12,13 @@ const control = ({ cb }) => async track => {
     }
 };
 
-const Track = ({
+const Track = forwardRef(({
     track = op.get(mockTracks, 'body.tracks.items.0', {}),
     onPlay = track => console.log('play', { track }),
     onPause = track => console.log('pause', { track }),
     onResume = track => console.log('resume', { track }),
     status = 'stopped',
-}) => {
+}, ref) => {
     const uri = op.get(track, 'uri');
     const album = op.get(track, 'album', {});
     const image = op.get(album, 'images.0');
@@ -47,7 +47,7 @@ const Track = ({
     if (status === 'paused') Control = controls.resume;
 
     return (
-        <article className='track'>
+        <article className='track' ref={ref}>
             <div className='track-bg'>
                 {image && <img src={image.url} alt={op.get(track, 'name')} />}
             </div>
@@ -88,6 +88,6 @@ const Track = ({
             </div>
         </article>
     );
-};
+});
 
 export default Track;

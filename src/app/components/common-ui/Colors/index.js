@@ -1,5 +1,3 @@
-import Reactium from 'reactium-core/sdk';
-
 const defaultColors = {
     black: '#000000',
     grayDark: '#333333',
@@ -33,13 +31,11 @@ const defaultNamed = {
 
 const Colors = val => {
     let clr = { ...defaultColors };
-    Reactium.Hook.runSync('rui-colors', clr);
     return val && Object.keys(clr).includes(val) ? clr[val] : clr;
 };
 
 const ColorNames = val => {
     let clr = { ...defaultNamed };
-    Reactium.Hook.runSync('rui-color-names', clr);
     return val && Object.keys(clr).includes(val) ? clr[val] : clr;
 };
 
