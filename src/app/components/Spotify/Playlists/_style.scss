@@ -1,4 +1,4 @@
-.search-form {
+.search-form, .search-spacer {
     margin: px2rem(20) 0;
 }
 
@@ -47,4 +47,22 @@ $playlist-border-color: $color-grey !default;
         padding: px2rem(10);
         scale: 1.5;
     }
+}
+
+
+[type=search] {
+    display: inline-block;
+    padding: px2rem(10) px2rem(8);
+    border-radius: 4px;
+    border: 1px solid rgba($playlist-border-color, .8);
+    position: relative;
+
+    &:focus {
+        outline-offset: 0;
+    }
+}
+
+.search-spacer {
+    display: inline-block;
+    height: px2rem(36);
 }

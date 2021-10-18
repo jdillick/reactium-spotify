@@ -1,3 +1,13 @@
-.style {
+.view {
+    &-header {
+        display: flex;
+    }
+}
 
+.home-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: px2rem(32);
+    width: px2rem(32);
 }

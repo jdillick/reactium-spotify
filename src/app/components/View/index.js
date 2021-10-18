@@ -7,8 +7,10 @@ import Reactium, {
     useHookComponent,
 } from 'reactium-core/sdk';
 import { Link } from 'react-router-dom';
+import { Feather } from 'components/common-ui/Icon';
 import op from 'object-path';
 import mockPlaylists from '../Spotify/mock-playlists';
+import _ from 'underscore';
 
 /**
  * -----------------------------------------------------------------------------
@@ -16,7 +18,6 @@ import mockPlaylists from '../Spotify/mock-playlists';
  * -----------------------------------------------------------------------------
  */
 const View = props => {
-    // console.log(props);
     const state = useSyncState({
         title: __('Reactium Spotify Demo'),
         search: '',
@@ -26,6 +27,8 @@ const View = props => {
         zone: 'main',
     });
     const zone = op.get(props, 'active.match.route.zone', 'main');
+    const activePath = op.get(props, 'active.match.route.path', '/');
+    const isHome = activePath === '/';
     const params = op.get(props, 'active.params', {});
 
     useEffect(() => {
@@ -53,10 +56,15 @@ const View = props => {
                 <title>{state.get('title', '')}</title>
             </Helmet>
 
-            <article className='m-xs-20'>
-                <Link to='/'>
+            <article className='view m-xs-20'>
+                <div className='view-header'>
+                    {!isHome && (
+                        <Link to='/' className={'home-link mr-xs-4'}>
+                            <span className='sr-only'>Back to Home</span><Feather.Home />
+                        </Link>
+                    )}
                     <h1>{state.get('title', '')}</h1>
-                </Link>
+                </div>
                 {transitionState === 'LOADING' && <Loading />}
                 <Zone
                     state={state}

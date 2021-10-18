@@ -27,7 +27,7 @@ const Playlists = ({ state, transitionState }) => {
     useEventEffect(
         state,
         {
-            set: _.throttle(searchEventHandler, 1000),
+            set: _.throttle(searchEventHandler, 1500),
         },
         [],
     );
@@ -54,7 +54,8 @@ const Playlists = ({ state, transitionState }) => {
 
     return (
         <>
-            <Search state={state} />
+            {transitionState === 'READY' && <Search state={state} />}
+            {(transitionState !== 'READY') && <span className='search-spacer'></span>}
 
             <ul className='playlists-list row'>
                 {state.get('playlists', []).map((playlist, index) => (

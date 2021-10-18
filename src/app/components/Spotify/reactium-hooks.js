@@ -1,6 +1,7 @@
 import Reactium from 'reactium-core/sdk';
 import { sdk } from './sdk';
 import op from 'object-path';
+import _ from 'underscore';
 
 const CHECK_TOKEN_EXPIRATION = 1000 * 60;
 
@@ -15,7 +16,6 @@ Reactium.Hook.register('sdk-init', async () => {
     Reactium.Routing.routeListeners.register('spotify-route-observer', {
         handler: async updates => {
             if (op.get(updates, 'active.match.route.path') !== '/callback') {
-                console.log('Checking oauth...', op.get(updates, 'active.match.route.path'));
                 Reactium.Spotify.oauth();
 
                 const { transitionState, previous, current } = updates;
