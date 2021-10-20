@@ -25,7 +25,7 @@ Reactium.Hook.register('sdk-init', async () => {
                 }
 
                 if ( transitionState === 'ENTERING') {
-                    setTimeout(() => gsap.to([document.body, document.documentElement], { scrollTop: 0 }), 100);
+                    setTimeout(() => gsap.to([document.body, document.documentElement], { scrollTop: 0, duration: 1 }), 10);
                 }
             }
         },
