@@ -42,8 +42,15 @@ const Playlist = ({ state, params, transitionState }) => {
         if (objects)
             gsap.fromTo(
                 objects,
-                { x: '0' },
-                { x: '100vw', stagger: '.01', onComplete },
+                { x: '0', rotationX: 0, rotationY: 0, scale: 1 },
+                {
+                    x: '100vw',
+                    stagger: '.02',
+                    rotationX: 180,
+                    rotationY: 180,
+                    scale: 0,
+                    onComplete,
+                },
             );
     };
 
@@ -52,8 +59,15 @@ const Playlist = ({ state, params, transitionState }) => {
         if (objects)
             gsap.fromTo(
                 objects,
-                { x: '100vw' },
-                { x: '0', stagger: '.01', onComplete },
+                { x: '100vw', rotationX: 180, rotationY: 180, scale: 0 },
+                {
+                    x: '0',
+                    stagger: '.02',
+                    rotationX: 0,
+                    rotationY: 0,
+                    scale: 1,
+                    onComplete,
+                },
             );
     };
 

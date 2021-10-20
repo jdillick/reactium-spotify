@@ -2,6 +2,7 @@ import Reactium from 'reactium-core/sdk';
 import { sdk } from './sdk';
 import op from 'object-path';
 import _ from 'underscore';
+import { gsap } from 'gsap';
 
 const CHECK_TOKEN_EXPIRATION = 1000 * 60;
 
@@ -21,6 +22,10 @@ Reactium.Hook.register('sdk-init', async () => {
                 const { transitionState, previous, current } = updates;
                 if (op.get(current, 'match.route.zone') === 'main' && transitionState === 'LOADING') {
                     Reactium.Routing.nextState();
+                }
+
+                if ( transitionState === 'ENTERING') {
+                    setTimeout(() => gsap.to([document.body, document.documentElement], { scrollTop: 0 }), 100);
                 }
             }
         },

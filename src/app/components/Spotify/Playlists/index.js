@@ -33,11 +33,26 @@ const Playlists = ({ state, transitionState }) => {
     );
 
     const exitingAnimation = (onComplete = () => {}) => {
-        gsap.fromTo(Object.values(refs.get()), { x: '0'}, { x: '100vw', stagger: '.05', onComplete })
+        gsap.fromTo(
+            Object.values(refs.get()),
+            { x: '0', rotationX: 0, rotationY: 0, scale: 1 },
+            {
+                x: '100vw',
+                stagger: '.05',
+                rotationX: 180,
+                rotationY: 180,
+                scale: 0,
+                onComplete,
+            },
+        );
     };
 
     const enteringAnimation = (onComplete = () => {}) => {
-        gsap.fromTo(Object.values(refs.get()), { x: '100vw'}, { x: '0', stagger: '.05', onComplete })
+        gsap.fromTo(
+            Object.values(refs.get()),
+            { x: '100vw', rotationX: 180, rotationY: 180, scale: 0 },
+            { x: '0', stagger: '.05', rotationX: 0, rotationY: 0, scale: 1, onComplete },
+        );
     };
 
     useEffect(() => {
@@ -55,7 +70,9 @@ const Playlists = ({ state, transitionState }) => {
     return (
         <>
             {transitionState === 'READY' && <Search state={state} />}
-            {(transitionState !== 'READY') && <span className='search-spacer'></span>}
+            {transitionState !== 'READY' && (
+                <span className='search-spacer'></span>
+            )}
 
             <ul className='playlists-list row'>
                 {state.get('playlists', []).map((playlist, index) => (
