@@ -16,6 +16,6 @@
     SassPartial.register('common-ui', {
         pattern: /common-ui/,
         exclude: false,
-        order: ReactiumGulp.Enums.style.ATOMS,
+        priority: ReactiumGulp.Enums.style.ATOMS,
     })
 });

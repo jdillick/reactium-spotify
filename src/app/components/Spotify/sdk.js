@@ -59,10 +59,10 @@ export const sdk = {
             });
 
             await sdk.player.connect();
-            // Give the player time to setup, even though there is promise resolution
-            await new Promise(resolve => setTimeout(resolve, WAIT_FOR_PLAYER_CONNECTION));
+            // // Give the player time to setup, even though there is promise resolution
+            // await new Promise(resolve => setTimeout(resolve, WAIT_FOR_PLAYER_CONNECTION));
 
-            await sdk.setupPlayerDevice();
+            // await sdk.setupPlayerDevice();
         }
 
         getOAuthToken(token => sdk.api.setAccessToken(token));

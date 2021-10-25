@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "@atomic-reactor/reactium-sdk-core": "^1.1.4",
-    "@atomic-reactor/toolkit": "file:reactium_modules/@atomic-reactor/toolkit/_npm",
     "@babel/cli": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@loadable/component": "^5.14.1",
@@ -90,10 +89,11 @@
     "shallow-equals": "^1.0.0",
     "underscore": "*",
     "uuid": "^3.4.0",
-    "xss": "^1.0.10"
+    "xss": "^1.0.10",
+    "@atomic-reactor/toolkit": "file:reactium_modules/@atomic-reactor/toolkit/_npm"
   },
   "devDependencies": {
-    "@atomic-reactor/cli": "^2.2.59",
+    "@atomic-reactor/cli": "^2.2.62",
     "@atomic-reactor/gulp-watch": "^5.0.2",
     "@atomic-reactor/node-sass-reactium-importer": "^1.0.0",
     "@atomic-reactor/webpack-po-loader": "0.0.3",
