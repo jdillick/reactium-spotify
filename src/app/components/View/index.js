@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Reactium, {
     Zone,
-    useSyncState,
+    useRegisterSyncHandle,
     __,
     useHookComponent,
 } from 'reactium-core/sdk';
@@ -12,13 +12,57 @@ import op from 'object-path';
 import mockPlaylists from '../Spotify/mock-playlists';
 import _ from 'underscore';
 
+const extendHandle = handle => {
+    handle.extend('setPageTitle', title => handle.set('title', title));
+    handle.extend('setPlaylists', playlists => handle.set('playlists', playlists));
+    handle.extend('setPlaylist', playlist => handle.set('playlist', playlist));
+    handle.extend('setTrack', track => handle.set('track', track));
+    handle.extend('playTrack', track => {
+        Reactium.Spotify.play(track);
+        handle.set('track', {
+            ...track,
+            status: 'playing',
+        });
+    });
+    handle.extend('pauseTrack', track => {
+        Reactium.Spotify.pause();
+        handle.set('track.status', 'paused');
+    });
+    handle.extend('resumeTrack', track => {
+        Reactium.Spotify.resume();
+        handle.set('track.status', 'playing');
+    });
+    handle.extend('setTrackStatus', status => {
+        handle.set('status', status);
+    });
+    handle.extend('playerStateChanged', async status => {
+        handle.setTrackStatus(status);
+        const track = handle.get('track', {});
+
+        if (track.id !== op.get(status, 'track_window.current_track.id')) {
+            const track = await Reactium.Spotify.getCurrentTrack();
+            if (track) handle.setTrack({
+                ...track,
+                status: status.paused ? 'paused' : 'playing',
+            })
+
+            else handle.setTrack({});
+        }
+    });
+}
+
 /**
  * -----------------------------------------------------------------------------
  * Functional Component: View
  * -----------------------------------------------------------------------------
  */
 const View = props => {
-    const state = useSyncState({
+    const zone = op.get(props, 'active.match.route.zone', 'main');
+    const activePath = op.get(props, 'active.match.route.path', '/');
+    const isHome = activePath === '/';
+    const params = op.get(props, 'active.params', {});
+    const Loading = useHookComponent('Loading');
+    const handle = useRegisterSyncHandle('SpotifyDemo', {
         title: __('Reactium Spotify Demo'),
         search: '',
         playlists: op.get(mockPlaylists, 'body.playlists.items', []),
@@ -26,48 +70,46 @@ const View = props => {
         track: {},
         zone: 'main',
     });
-    const zone = op.get(props, 'active.match.route.zone', 'main');
-    const activePath = op.get(props, 'active.match.route.path', '/');
-    const isHome = activePath === '/';
-    const params = op.get(props, 'active.params', {});
+    extendHandle(handle);
+
+    console.log({handle});
 
     useEffect(() => {
-        const playerHandler = status => {
-            if (state.get('track.id') && status.paused) {
-                state.set('track.status', 'paused');
-            }
-        };
-
-        setTimeout(() => {
-            Reactium.Spotify.player &&
-                Reactium.Spotify.player.addListener(
+        if (Reactium.Spotify.player) {
+            Reactium.Spotify.player.addListener(
+                'player_state_changed',
+                handle.playerStateChanged,
+            );
+            return () =>
+                Reactium.Spotify.player.removeListener(
                     'player_state_changed',
-                    playerHandler,
+                    handle.playerStateChanged,
                 );
-        }, 250);
-    }, []);
+        }
+    }, [Reactium.Spotify.player]);
 
-    const Loading = useHookComponent('Loading');
     const transitionState = op.get(props, 'transitionState', 'LOADING');
 
     return (
         <>
             <Helmet titleTemplate='%s - Reactium Spotify'>
-                <title>{state.get('title', '')}</title>
+                <title>{handle.get('title', '')}</title>
             </Helmet>
 
             <article className='view p-xs-20'>
                 <div className='view-header'>
+                    <Zone params={params} zone={'header'} />
                     {!isHome && (
                         <Link to='/' className={'home-link mr-xs-4'}>
-                            <span className='sr-only'>Back to Home</span><Feather.Home />
+                            <span className='sr-only'>{__('Back to Home')}</span>
+                            <Feather.Home />
                         </Link>
                     )}
-                    <h1>{state.get('title', '')}</h1>
+                    <h1>{handle.get('title', '')}</h1>
                 </div>
+
                 {transitionState === 'LOADING' && <Loading />}
                 <Zone
-                    state={state}
                     params={params}
                     zone={zone}
                     transitionState={transitionState}

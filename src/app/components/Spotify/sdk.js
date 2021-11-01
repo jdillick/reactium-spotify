@@ -49,7 +49,6 @@ const onSpotifyWebPlaybackSDKReady = sdk => async () => {
         } catch (err) {
             error = err;
         }
-        console.log({device, error});
     }
 
     if (!device || error) {
@@ -138,4 +137,16 @@ export const sdk = {
     resume: async () => sdk.player.resume(),
 
     pause: async () => sdk.player.pause(),
+
+    getPlaylist: async playlistId => {
+        const result = await sdk.api.getPlaylist(
+            playlistId,
+        );
+        return op.get(result, 'body', {});
+    },
+
+    getCurrentTrack: async () => {
+        const results = await sdk.api.getMyCurrentPlayingTrack();
+        return op.get(results, 'body.item', {});
+    },
 };
