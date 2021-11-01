@@ -60,8 +60,8 @@ const Track = forwardRef(({
                     </div>
 
                     <div className='track-details'>
-                        <h2>{op.get(track, 'name')}</h2>
-                        <h3 className='h4'>{op.get(album, 'name')}</h3>
+                        <h2 className='h3 mb-10'>{op.get(track, 'name')}</h2>
+                        <h3 className='h6'>{op.get(album, 'name')}</h3>
 
                         <label className='sr-only' htmlFor='artists'>
                             {__('Artists')}

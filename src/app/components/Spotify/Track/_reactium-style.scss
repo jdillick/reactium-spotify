@@ -8,10 +8,10 @@ $track-border-color: $color-grey !default;
 
 .track {
     height: 100%;
-    min-height: 50vh;
+    min-height: 60vh;
     width: 100%;
     border-radius: px2rem(20);
-    border: 1px solid rgba($track-border-color, .5);
+    border: 1px solid rgba($track-border-color, 0.5);
     box-shadow: 5px 8px 18px -2px $track-border-color;
     position: relative;
     overflow: hidden;
@@ -23,9 +23,9 @@ $track-border-color: $color-grey !default;
         z-index: 100;
         display: flex;
         padding: px2rem(24);
-        background: rgba(white, .8);
+        background: rgba(white, 0.8);
         border-radius: px2rem(10);
-        max-width: 90%;
+        max-width: 70%;
     }
 
     &-bg {
@@ -35,7 +35,7 @@ $track-border-color: $color-grey !default;
         right: 0;
         bottom: 0;
         left: 0;
-        opacity: .8;
+        opacity: 0.8;
         filter: blur(6px);
 
         img {
@@ -59,14 +59,44 @@ $track-border-color: $color-grey !default;
         & > * {
             margin-right: px2rem(20);
             margin-bottom: px2rem(20);
+
+            *:last-child {
+                margin-right: 0;
+            }
         }
     }
 
     &-image {
         img {
-            height: px2rem(200);
+            height: px2rem(180);
             width: auto;
-            border: 1px solid rgba($track-border-color, .5);
+            border: 1px solid rgba($track-border-color, 0.5);
+        }
+    }
+}
+
+@include breakpoint(sm-down) {
+    .track {
+        width: 90vw;
+        min-height: 80vh;
+
+        &-body {
+            padding: px2rem(20) px2rem(10);
+        }
+
+        &-control {
+            flex-direction: column;
+        }
+
+        &-image {
+            img {
+                height: px2rem(200);
+            }
+        }
+
+        &-details {
+            margin: 0;
+            padding: px2rem(10);
         }
     }
 }

@@ -87,7 +87,7 @@ const Playlist = ({ state, params, transitionState }) => {
         <ul className={'playlist row transitions'}>
             {transitionState !== 'LOADING' &&
                 state.get('playlist.tracks.items', []).map(({ track }) => (
-                    <li key={track.uri} className={'col-sm-12 col-md-4 p-20'}>
+                    <li key={track.uri} className={'col-sm-12 col-md-6 col-lg-4 p-md-20 pb-xs-20'}>
                         <Track
                             ref={el => refs.set([track.id], el)}
                             track={track}

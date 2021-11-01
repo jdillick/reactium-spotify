@@ -56,7 +56,7 @@ const View = props => {
                 <title>{state.get('title', '')}</title>
             </Helmet>
 
-            <article className='view m-xs-20'>
+            <article className='view p-xs-20'>
                 <div className='view-header'>
                     {!isHome && (
                         <Link to='/' className={'home-link mr-xs-4'}>
