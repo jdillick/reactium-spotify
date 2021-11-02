@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Reactium, {
     useEventEffect,
     __,
@@ -19,12 +19,21 @@ const Playlists = ({ transitionState }) => {
     );
 
     const refs = useRefs();
+    const animationRef = useRef();
 
     useEffect(() => {
         handle.setPageTitle(__('Search Playlists'));
     }, []);
 
-    const searchEventHandler = async e => {
+    const stopAnimation = () => {
+        if (animationRef.current) {
+            animationRef.current.kill();
+            animationRef.current = null;
+        }
+    };
+
+    const _searchEventHandler = async e => {
+        stopAnimation();
         const results = await Reactium.Spotify.api.searchPlaylists(
             handle.get('search', 'mood'),
         );
@@ -32,13 +41,14 @@ const Playlists = ({ transitionState }) => {
         handle.setPlaylists(op.get(results, 'body.playlists.items', []));
         enteringAnimation();
     };
+    const searchHandler = _.throttle(_searchEventHandler, 1500);
 
     useEventEffect(
         handle,
         {
             set: e => {
                 if (e.__path === 'search' && e.value.length > 3) {
-                    _.throttle(searchEventHandler, 1500)(e);
+                    searchHandler(e);
                 }
             },
         },
@@ -46,7 +56,7 @@ const Playlists = ({ transitionState }) => {
     );
 
     const exitingAnimation = (onComplete = () => {}) => {
-        gsap.fromTo(
+        animationRef.current = gsap.fromTo(
             Object.values(refs.get()),
             { x: '0', rotationX: 0, rotationY: 0, scale: 1 },
             {
@@ -61,7 +71,7 @@ const Playlists = ({ transitionState }) => {
     };
 
     const enteringAnimation = (onComplete = () => {}) => {
-        gsap.fromTo(
+        animationRef.current = gsap.fromTo(
             Object.values(refs.get()),
             { x: '100vw', rotationX: 180, rotationY: 180, scale: 0 },
             {
