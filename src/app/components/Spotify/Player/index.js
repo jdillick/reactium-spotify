@@ -157,7 +157,7 @@ const Player = ({
                                 type='range'
                                 min={0}
                                 max={1.0}
-                                step={0.1}
+                                step={0.05}
                                 value={handle.get('volume', 0.5)}
                                 onChange={({ target }) =>
                                     onVolumeChange(target.value)
