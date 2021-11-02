@@ -25,20 +25,22 @@ const Playlists = ({ transitionState }) => {
     }, []);
 
     const searchEventHandler = async e => {
-        if (e.__path === 'search' && e.value.length > 3) {
-            const results = await Reactium.Spotify.api.searchPlaylists(
-                handle.get('search', 'mood'),
-            );
-            await new Promise(exitingAnimation);
-            handle.setPlaylists(op.get(results, 'body.playlists.items', []));
-            enteringAnimation();
-        }
+        const results = await Reactium.Spotify.api.searchPlaylists(
+            handle.get('search', 'mood'),
+        );
+        await new Promise(exitingAnimation);
+        handle.setPlaylists(op.get(results, 'body.playlists.items', []));
+        enteringAnimation();
     };
 
     useEventEffect(
         handle,
         {
-            set: _.throttle(searchEventHandler, 1500),
+            set: e => {
+                if (e.__path === 'search' && e.value.length > 3) {
+                    _.throttle(searchEventHandler, 1500)(e);
+                }
+            },
         },
         [],
     );
