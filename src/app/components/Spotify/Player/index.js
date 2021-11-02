@@ -40,8 +40,8 @@ const Player = ({
     const position = op.get(status, 'position', 0);
     const positionDuration = dayjs.duration(position);
     const dString = duration => {
-        const mins = duration.minutes();
-        const secs = duration.seconds();
+        const mins = duration.minutes() || 0;
+        const secs = duration.seconds() || 0;
         return `${mins < 10 ? `0${mins}` : mins}:${
             secs < 10 ? `0${secs}` : secs
         }`;
@@ -54,11 +54,11 @@ const Player = ({
                 handle.set(
                     'status.position',
                     Math.min(
-                        handle.get('status.position', 0) + 2000,
+                        handle.get('status.position', 0) + 500,
                         handle.get('track.duration_ms', 0),
                     ),
                 );
-            }, 2000);
+            }, 500);
             return () => clearTimeout(to);
         }
     }, [op.get(track, 'id'), handle.get('status.position')]);
