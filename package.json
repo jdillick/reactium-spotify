@@ -180,7 +180,7 @@
     ]
   },
   "reactiumDependencies": {
-    "@atomic-reactor/toolkit": "1.0.15"
+    "@atomic-reactor/toolkit": "1.0.21"
   },
   "husky": {}
 }

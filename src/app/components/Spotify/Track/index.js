@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import op from 'object-path';
 import mockTracks from '../mock-tracks';
 import { Feather } from 'components/common-ui/Icon';
-import { __, useSyncState } from 'reactium-core/sdk';
+import { __ } from 'reactium-core/sdk';
 
 const control = ({ cb }) => async track => {
     try {

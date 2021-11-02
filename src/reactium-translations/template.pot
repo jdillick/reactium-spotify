@@ -2,3 +2,62 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: en_US\n"
+
+#: src/app/components/Spotify/Track/index.js:67
+msgid "Artists"
+msgstr ""
+
+#: src/app/components/View/index.js:107
+msgid "Back to Home"
+msgstr ""
+
+#: src/app/components/Toolkit/Spotify/Documentation/reactium-hooks.js:11
+#: src/app/components/Toolkit/Spotify/Documentation/reactium-hooks.js:12
+msgid "Documentation"
+msgstr ""
+
+#: src/app/components/Spotify/Track/index.js:39
+msgid "Pause"
+msgstr ""
+
+#: src/app/components/Spotify/Track/index.js:29
+msgid "Play %s"
+msgstr ""
+
+#: src/app/components/Toolkit/Spotify/Player/index.js:13
+#: src/app/components/Toolkit/Spotify/Player/reactium-hooks.js:11
+#: src/app/components/Toolkit/Spotify/Player/reactium-hooks.js:12
+msgid "Player"
+msgstr ""
+
+#: src/app/components/Spotify/Playlist/index.js:28
+msgid "Playlist: %s"
+msgstr ""
+
+#: src/app/components/View/index.js:68
+msgid "Reactium Spotify Demo"
+msgstr ""
+
+#: src/app/components/Spotify/Track/index.js:34
+msgid "Resume %s"
+msgstr ""
+
+#: src/app/components/Spotify/Playlists/Search/index.js:6
+msgid "Search playlists"
+msgstr ""
+
+#: src/app/components/Spotify/Playlists/index.js:24
+msgid "Search Playlists"
+msgstr ""
+
+#: src/app/components/Toolkit/Spotify/Documentation/index.js:9
+#: src/app/components/Toolkit/Spotify/reactium-hooks.js:20
+#: src/app/components/Toolkit/Spotify/reactium-hooks.js:21
+msgid "Spotify Components"
+msgstr ""
+
+#: src/app/components/Toolkit/Spotify/reactium-hooks.js:10
+#: src/app/components/Toolkit/Spotify/reactium-hooks.js:11
+#: src/app/components/Toolkit/Spotify/Track/index.js:9
+msgid "Track"
+msgstr ""

@@ -7,10 +7,12 @@ export default () => {
 
     return (
         <Element title={__('Track')} className='pt-xs-64 px-xs-40'>
-            <Track
-                onPlay={Reactium.Spotify.play}
-                onPause={Reactium.Spotify.pause}
-            />
+            <div style={{ maxWidth: '50vw' }}>
+                <Track
+                    onPlay={Reactium.Spotify.play}
+                    onPause={Reactium.Spotify.pause}
+                />
+            </div>
         </Element>
     );
 };

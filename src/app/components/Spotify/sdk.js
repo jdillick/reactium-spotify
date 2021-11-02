@@ -25,7 +25,7 @@ const onSpotifyWebPlaybackSDKReady = sdk => async () => {
     const player = (sdk.player = new Spotify.Player({
         name: playerName,
         getOAuthToken,
-        volume: 0.5,
+        volume: Reactium.Prefs.get('volume', 0.5),
     }));
 
     player.addListener('authentication_error', ({ message }) => {
@@ -149,4 +149,12 @@ export const sdk = {
         const results = await sdk.api.getMyCurrentPlayingTrack();
         return op.get(results, 'body.item', {});
     },
+
+    setVolume: async (volume = .5) => {
+        return sdk.player.setVolume(volume);
+    },
+
+    seekPosition: async (position = 0) => {
+        return sdk.api.seek(position);
+    }
 };

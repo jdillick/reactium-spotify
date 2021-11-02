@@ -1,12 +1,12 @@
 /**
  * -----------------------------------------------------------------------------
- * Reactium Plugin View
+ * Reactium Plugin Player
  * -----------------------------------------------------------------------------
  */
 
-import View from './index';
+import Player from './index';
 import Reactium from 'reactium-core/sdk';
 
-Reactium.Plugin.register('View-plugin').then(() => {
-    Reactium.Component.register('View', View);
+Reactium.Plugin.register('Player-plugin').then(() => {
+    Reactium.Component.register('Player', Player);
 });

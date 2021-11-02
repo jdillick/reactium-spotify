@@ -1,0 +1,87 @@
+$player-foreground: $color-white !default;
+$player-background: darken(#ccc, 50%) !default;
+
+.player {
+    &, &-track-controls, &-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    color: $player-foreground;
+    background: $player-background;
+    box-shadow: -1px -10px 15px 5px #000000;
+    height: px2rem(80);
+    padding: px2rem(10);
+
+    &-details, &-controls, &-volume {
+        flex: 1 1 33%;
+    }
+
+    &-details {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        & > * {
+            margin-right: px2rem(8);
+        }
+    }
+
+    &-art {
+        img {
+            max-width: px2rem(60);
+        }
+    }
+
+    &-controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-track-controls {
+        width: px2rem(150);
+        margin-bottom: px2rem(4);
+        align-self: center;
+        justify-self: center;
+    }
+
+    &-progress {
+        width: px2rem(220);
+    }
+
+    &-volume {
+        &, &-input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &-volume-input {
+        width: px2rem(200);
+        & > * {
+            margin-right: px2rem(4);
+        }
+    }
+}
+
+.volume-icon {
+    fill: $player-foreground;
+}
+
+@include breakpoint(sm-down) {
+    .player {
+        flex-direction: column;
+        height: 25vh;
+
+        &-details {
+            flex-grow: 1;
+        }
+
+        &-volume {
+            display: none;
+        }
+    }
+}
