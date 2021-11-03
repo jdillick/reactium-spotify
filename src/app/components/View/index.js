@@ -31,8 +31,9 @@ const View = props => {
         playlist: {},
         track: {},
         zone: 'main',
-        volume: Reactium.Prefs.get('volume', .5),
-        status: { paused: true, position: 0 }
+        volume: Reactium.Prefs.get('volume', 0.5),
+        status: { paused: true, position: 0 },
+        queue: Reactium.Prefs.get('queue', []),
     });
     extendHandle(handle);
 

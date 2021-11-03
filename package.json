@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@atomic-reactor/reactium-sdk-core": "^1.2.5",
+    "@atomic-reactor/toolkit": "file:reactium_modules/@atomic-reactor/toolkit/_npm",
     "@babel/cli": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@loadable/component": "^5.14.1",
@@ -78,10 +79,12 @@
     "prop-types": "^15.7.2",
     "querystring-browser": "^1.0.4",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
+    "react-toastify": "^8.0.3",
     "regenerator-runtime": "^0.13.9",
     "run-script-os": "^1.1.6",
     "semver": "^7.3.5",
@@ -89,8 +92,7 @@
     "shallow-equals": "^1.0.0",
     "underscore": "*",
     "uuid": "^3.4.0",
-    "xss": "^1.0.10",
-    "@atomic-reactor/toolkit": "file:reactium_modules/@atomic-reactor/toolkit/_npm"
+    "xss": "^1.0.10"
   },
   "devDependencies": {
     "@atomic-reactor/cli": "^2.2.62",

@@ -22,6 +22,8 @@ const Player = ({
     onForward = track => console.log('forward'),
     onPositionChange = value => console.log('position', { value }),
     onVolumeChange = value => console.log('volume', { value }),
+    hasNextTrack = false,
+    onViewQueue = () => console.log('view queue'),
 }) => {
     const {
         handle,
@@ -113,7 +115,8 @@ const Player = ({
                             </button>
                             <button
                                 className='btn-icon btn-player'
-                                onClick={onForward}>
+                                onClick={onForward}
+                                disabled={!hasNextTrack}>
                                 <Feather.SkipForward />
                             </button>
                         </div>
@@ -168,6 +171,12 @@ const Player = ({
                             </div>
                         </div>
                     </div>
+                    <button
+                        className='btn-icon btn-view-queue'
+                        onClick={onViewQueue}
+                        disabled={!hasNextTrack}>
+                        <Feather.List />
+                    </button>
                 </section>
             )}
         </>

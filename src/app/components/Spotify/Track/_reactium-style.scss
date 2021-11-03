@@ -20,6 +20,7 @@ $track-border-color: $color-grey !default;
     align-items: center;
 
     &-body {
+        position: relative;
         z-index: 100;
         display: flex;
         padding: px2rem(24);
@@ -72,6 +73,19 @@ $track-border-color: $color-grey !default;
             width: auto;
             border: 1px solid rgba($track-border-color, 0.5);
         }
+    }
+
+    &-queue {
+        position: absolute;
+        top: px2rem(10);
+        right: px2rem(10);
+    }
+}
+
+.track-queue {
+    .btn-icon {
+        width: px2rem(20) !important;
+        height: px2rem(20) !important;
     }
 }
 

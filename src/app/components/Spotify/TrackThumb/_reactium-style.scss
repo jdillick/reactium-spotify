@@ -1,0 +1,24 @@
+$thumb-foreground: $color-white !default;
+$thumb-background: $color-grey !default;
+
+.track-thumb {
+    display: flex;
+    color: $thumb-foreground;
+    background: $thumb-background;
+    width: px2rem(280);
+    padding: px2rem(8);
+
+    img {
+        height: px2rem(50);
+        width: auto;
+    }
+
+    &-name {
+        margin-left: px2rem(10);
+
+        h2, h3 {
+            font-weight: 500;
+            margin-bottom: px2rem(4);
+        }
+    }
+}

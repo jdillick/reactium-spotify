@@ -1,0 +1,39 @@
+$modal-background: rgba(darken(#ccc, 50%), .9) !default;
+$modal-contents-background: rgba($color-white, .8) !default;
+.modal {
+    position: relative;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: opacity .25s ease-out;
+
+    &-contents {
+        display: none;
+        background: $modal-contents-background;
+        position: relative;
+        min-width: 10vw;
+        min-height: 10vh;
+        border-radius: px2rem(4);
+    }
+
+    &-open {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        opacity: 1;
+        z-index: 1000;
+        background: $modal-background;
+
+        .modal-contents {
+            display: block;
+        }
+    }
+
+}

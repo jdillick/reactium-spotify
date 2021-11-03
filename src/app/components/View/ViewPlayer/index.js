@@ -3,9 +3,9 @@ import { useHookComponent, useSelectHandle } from 'reactium-core/sdk';
 
 const ViewPlayer = () => {
     const { handle } = useSelectHandle('SpotifyDemo');
+    const { handle: modal } = useSelectHandle('Modal');
     const Player = useHookComponent('Player');
-
-    // onForward = track => console.log('forward'),
+    const TrackQueue = useHookComponent('TrackQueue');
 
     return (
         <>
@@ -16,6 +16,9 @@ const ViewPlayer = () => {
                     onVolumeChange={handle.setVolume}
                     onPositionChange={handle.seekPosition}
                     onBack={() => handle.seekPosition(0)}
+                    onForward={() => handle.playNextTrack()}
+                    hasNextTrack={handle.hasNextTrack()}
+                    onViewQueue={() => modal.open(TrackQueue)}
                 />
             )}
         </>

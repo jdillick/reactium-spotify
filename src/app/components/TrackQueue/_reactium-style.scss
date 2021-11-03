@@ -1,0 +1,59 @@
+$queue-foreground: $color-white !default;
+$queue-thumb-background: darken($color-grey, 30%) !default;
+
+.queue {
+    list-style: none;
+    margin: px2rem(40);
+    max-width: 80vw;
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &-list-item {
+        margin-bottom: px2rem(6);
+    }
+
+    &-item {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        .track-thumb {
+            background: $queue-thumb-background;
+        }
+
+        &-grab, &-remove {
+            background: $queue-thumb-background;
+            svg {
+                fill: white;
+            }
+        }
+        &-grab {
+            display: flex;
+            align-items: center;
+            width: px2rem(40);
+            padding: px2rem(10);
+        }
+
+        &-remove {
+            border: none;
+            outline: none;
+
+            &:focus {
+                outline: 1px solid black;
+            }
+        }
+
+        .playing {
+            position: absolute;
+            right: px2rem(40);
+            top: px2rem(20);
+        }
+    }
+}
+
+.playing {
+    svg {
+        fill: $queue-foreground;
+    }
+}

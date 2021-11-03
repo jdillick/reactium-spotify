@@ -8,6 +8,7 @@ $player-background: darken(#ccc, 50%) !default;
         align-items: center;
     }
 
+    position: relative;
     color: $player-foreground;
     background: $player-background;
     box-shadow: -1px -10px 15px 5px #000000;
@@ -64,6 +65,12 @@ $player-background: darken(#ccc, 50%) !default;
         & > * {
             margin-right: px2rem(4);
         }
+    }
+
+    .btn-view-queue {
+        position: absolute;
+        right: px2rem(20);
+        top: px2rem(20);
     }
 }
 

@@ -7,7 +7,7 @@ export default () => {
     const { Element } = useHookComponent('RTK');
     const Player = useHookComponent('Player');
     const state = useRegisterSyncHandle('SpotifyDemo', {
-        track: { ...op.get(mockTracks, 'body.tracks.items.0', {}) },
+        track: { ...op.get(mockTracks, 'body.tracks.items.1', {}) },
         status: {
             timestamp: 1635874612046,
             position: 6340,

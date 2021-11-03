@@ -99,6 +99,7 @@ const Playlist = ({ params, transitionState }) => {
                             onPlay={handle.playTrack}
                             onPause={handle.pauseTrack}
                             onResume={handle.resumeTrack}
+                            onQueue={handle.queueTrack}
                             status={
                                 track.id === handle.get('track.id') &&
                                 handle.get('track.status')

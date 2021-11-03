@@ -1,6 +1,7 @@
 import Reactium from 'reactium-core/sdk';
 import _ from 'underscore';
 import op from 'object-path';
+import { __, HookComponent } from 'reactium-core/sdk';
 
 export const extendHandle = handle => {
     handle.extend('setPageTitle', title => handle.set('title', title));
@@ -52,8 +53,79 @@ export const extendHandle = handle => {
         handle.set('volume', volume);
     });
 
-    handle.extend('seekPosition', _.throttle(async position => {
-        handle.set('status.position', position);
-        await Reactium.Spotify.seekPosition(position);
-    }, 1000));
+    handle.extend(
+        'seekPosition',
+        _.throttle(async position => {
+            handle.set('status.position', position);
+            await Reactium.Spotify.seekPosition(position);
+        }, 1000),
+    );
+
+    handle.extend('queueTrack', async track => {
+        const queue = _.uniq(
+            handle.get('queue', []).concat(track),
+            false,
+            ({ id }) => id,
+        );
+        handle.set('queue', queue);
+        Reactium.Prefs.set('queue', queue);
+        Reactium.toast(() => (
+            <>
+                <div className='mb-8'>{__('Queued:')}</div>
+                <HookComponent hookName='TrackThumb' track={track} />
+            </>
+        ));
+    });
+
+    const copyMove = (arr = [], from, to) => {
+        const newArray = [...arr];
+        const item = op.get(arr, from);
+        if (item) {
+            newArray.splice(from, 1);
+            newArray.splice(to, 0, item);
+        }
+
+        return newArray;
+    };
+
+    handle.extend('updateQueue', (source, destination) => {
+        const newQueue = copyMove(
+            handle.get('queue', Reactium.Prefs.get('queue', [])),
+            op.get(source, 'index', 0),
+            op.get(destination, 'index', 0),
+        );
+        handle.set('queue', newQueue);
+        Reactium.Prefs.set('queue', newQueue);
+    });
+
+    handle.extend('dequeueTrack', trackId => {
+        const newQueue = handle
+            .get('queue', Reactium.Prefs.get('queue', []))
+            .filter(({ id }) => id !== trackId);
+        handle.set('queue', newQueue);
+        Reactium.Prefs.set('queue', newQueue);
+    });
+
+    handle.extend('hasNextTrack', () => {
+        const queue = handle.get('queue', Reactium.Prefs.get('queue', []));
+
+        return queue.length > 0;
+    });
+
+    handle.extend('playNextTrack', () => {
+        const queue = handle.get('queue', Reactium.Prefs.get('queue', []));
+
+        if (queue.length > 0) {
+            const index = queue.findIndex(
+                track => track.id === handle.get('track.id'),
+            );
+            const track = op.get(
+                queue,
+                index < 0 ? 0 : (index + 1) % queue.length,
+            );
+            if (track) {
+                handle.playTrack(track);
+            }
+        }
+    });
 };
