@@ -53,8 +53,7 @@ const Player = ({
     useEffect(() => {
         if (!handle.get('status.paused', true)) {
             const to = setTimeout(() => {
-                handle.set(
-                    'status.position',
+                handle.setPosition(
                     Math.min(
                         handle.get('status.position', 0) + 500,
                         handle.get('track.duration_ms', 0),

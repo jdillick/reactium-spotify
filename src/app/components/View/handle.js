@@ -32,6 +32,15 @@ export const extendHandle = handle => {
         handle.set('status', status);
     });
 
+    handle.extend('setPosition', (position = 0) => {
+        if (
+            handle.hasNextTrack() &&
+            handle.get('status.duration', 2000) - position < 1500
+        ) {
+            handle.playNextTrack();
+        } else handle.set('status.position', position);
+    });
+
     handle.extend('playerStateChanged', async status => {
         handle.setTrackStatus(status);
         const track = handle.get('track', {});
