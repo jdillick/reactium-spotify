@@ -5,7 +5,7 @@ import {
     useRegisterSyncHandle,
     useIsContainer,
     useEventEffect,
-    HookComponent,
+    useScrollToggle,
 } from 'reactium-core/sdk';
 
 /**
@@ -14,16 +14,21 @@ import {
  * -----------------------------------------------------------------------------
  */
 const Modal = () => {
+    const bodyScroll = useScrollToggle();
     const handle = useRegisterSyncHandle('Modal', {
         open: false,
         Contents: {
             Component: () => null,
         },
     });
-    handle.extend('close', () => handle.set('open', false));
+    handle.extend('close', () => {
+        handle.set('open', false);
+        bodyScroll.enable();
+    });
     handle.extend('open', Component => {
         handle.set('Contents', { Component });
         handle.set('open', true);
+        bodyScroll.disable();
     });
 
     const isContainer = useIsContainer();
