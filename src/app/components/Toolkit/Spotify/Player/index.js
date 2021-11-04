@@ -20,7 +20,7 @@ export default () => {
 
     return (
         <Element title={__('Player')}>
-            <div className='m-20'>
+            <div className='m-20 mt-40'>
                 <Player />
             </div>
         </Element>

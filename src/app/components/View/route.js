@@ -1,5 +1,6 @@
 import View from './index';
 
+// the default transitionStates
 const transitionStates = [
     { state: 'EXITING', active: 'previous' },
     { state: 'LOADING', active: 'current' },

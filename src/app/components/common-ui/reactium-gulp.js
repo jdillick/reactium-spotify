@@ -12,10 +12,10 @@
  *
  * Set exclude to true to disable a partial by pattern.
  */
- ReactiumGulp.Hook.registerSync('ddd-styles-partial', SassPartial => {
+ReactiumGulp.Hook.registerSync('ddd-styles-partial', SassPartial => {
     SassPartial.register('common-ui', {
         pattern: /common-ui/,
         exclude: false,
         priority: ReactiumGulp.Enums.style.ATOMS,
-    })
+    });
 });

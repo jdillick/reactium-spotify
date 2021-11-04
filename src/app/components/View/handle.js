@@ -23,8 +23,8 @@ export const extendHandle = handle => {
         handle.set('track.status', 'paused');
     });
 
-    handle.extend('resumeTrack', track => {
-        Reactium.Spotify.resume();
+    handle.extend('resumeTrack', async track => {
+        await Reactium.Spotify.resume();
         handle.set('track.status', 'playing');
     });
 
@@ -58,6 +58,13 @@ export const extendHandle = handle => {
 
     handle.extend('setVolume', async volume => {
         await Reactium.Spotify.setVolume(volume);
+        Reactium.Prefs.set('volume', volume);
+        handle.set('volume', volume);
+    });
+
+    handle.extend('quietly', async (volume = 0.02) => {
+        await Reactium.Spotify.setVolume(volume);
+        await handle.resumeTrack();
         Reactium.Prefs.set('volume', volume);
         handle.set('volume', volume);
     });
