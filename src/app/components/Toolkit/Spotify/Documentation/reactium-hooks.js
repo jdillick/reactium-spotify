@@ -10,20 +10,13 @@ Reactium.Hook.register('plugin-ready', () => {
         component: MenuLink,
         children: __('Documentation'),
         'aria-label': __('Documentation'),
-        url: '/toolkit/spotify/doc',
-        group: 'spotify',
+        url: '/toolkit',
     });
 
     // Document
-    Reactium.Toolkit.Elements.register('spotify', {
+    Reactium.Toolkit.Elements.register('overview', {
         order: 0,
-        zone: 'spotify',
-        component: Document,
-    });
-
-    Reactium.Toolkit.Elements.register('spotify-doc', {
-        order: 0,
-        zone: 'spotify-doc',
+        zone: 'overview',
         component: Document,
     });
 });

@@ -19,6 +19,5 @@ Reactium.Hook.register('plugin-ready', () => {
         component: MenuLink,
         children: __('Spotify Components'),
         'aria-label': __('Spotify Components'),
-        url: '/toolkit/spotify',
     });
 });
